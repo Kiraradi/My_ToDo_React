@@ -15,7 +15,8 @@ const CheckBox = (props) => {
           type="checkbox"
           checked={props.active}
           onChange={handleChange}
-          className="checkbox"/>
+          className="checkbox"
+        />
       </label>
     </StyledCheckBox>
   )}

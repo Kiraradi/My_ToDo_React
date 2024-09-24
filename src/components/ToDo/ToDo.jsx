@@ -13,12 +13,12 @@ const ToDo = () => {
     const [tasksList, setTasksList] = useState([]);
     const [activeFilter, setActiveFilter] = useState('All');
 
-    const addTaskInList= (text) => {
+    const addTaskInList = (text) => {
         const newTask = createNewTask(text);
         setTasksList([...tasksList, newTask])
     }
 
-    const filterTasksList = () => {
+    const filterTasksList = (activeFilter) => {
         switch (activeFilter) {
             case 'All':
                 return [...tasksList];
@@ -33,12 +33,31 @@ const ToDo = () => {
         setTasksList(tasksList.filter(task => task.id !== id))
     }, [tasksList])
 
-    const filteredTasksList = React.useMemo(filterTasksList,[tasksList, activeFilter]);
+    const renameTaskById = (id, text) => {
+        setTasksList((prev) => {
+            return prev.map(task => {
+                if (task.id === id) {
+                    return {
+                        ...task,
+                        text: text
+                    }
+                }
+                return task;
+            })
+        })
+    }
+
+    const deleteAllTasks = () => {
+        setTasksList([])
+    }
+
+    const filteredTasksList = React.useMemo(() => filterTasksList(activeFilter), [tasksList, activeFilter]);
+    const leftTasks  = React.useMemo(() => filterTasksList('Active'), [tasksList, activeFilter]);
 
     const changeStatusTaskById = React.useCallback((id) => {
         setTasksList((prev) => {
-            return prev.map(task => {            
-                if (task.id === id ) {
+            return prev.map(task => {
+                if (task.id === id) {
                     return {
                         ...task,
                         status: !task.status
@@ -53,13 +72,22 @@ const ToDo = () => {
     return (
         <StyledToDo>
             <h1 className="title">Todos</h1>
-            <TodoForm addTaskInList={addTaskInList}/>
-            <Filter activeFilter={activeFilter} setActiveFilter={setActiveFilter}/>
-            <TasksList 
-                tasksList={filteredTasksList} 
-                changeStatusTaskById={changeStatusTaskById} 
-                deleteTaskById ={deleteTaskById}
+            <TodoForm addTaskInList={addTaskInList} />
+            <Filter activeFilter={activeFilter} setActiveFilter={setActiveFilter} />
+            <TasksList
+                tasksList={filteredTasksList}
+                changeStatusTaskById={changeStatusTaskById}
+                deleteTaskById={deleteTaskById}
+                renameTaskById={renameTaskById}
             />
+            {tasksList.length ? (
+                <div className="footer">
+                    <p>Осталось задач : {leftTasks.length}</p>
+                    <button className="delete_all_task" onClick={deleteAllTasks}>Удалить все задачи</button>
+                </div>
+            ) : (
+                <></>
+            )}
         </StyledToDo>
     )
 }
@@ -82,6 +110,21 @@ const StyledToDo = styled.div`
     .title {
         font-size: 45px;
         color: ${COLORS.red};
+    }
+
+    .footer {
+        display: flex;
+        width: 100%;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .delete_all_task {
+        background-color: ${COLORS.white};
+        border: 2px solid ${COLORS.black};
+        border-radius: 5px;
+        cursor: pointer;
+        padding: 5px;
     }
 `
 

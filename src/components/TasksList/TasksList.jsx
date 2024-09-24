@@ -12,6 +12,7 @@ const TasksList = (props) => {
           task={task}
           changeStatusTaskById={props.changeStatusTaskById}
           deleteTaskById={props.deleteTaskById}
+          renameTaskById={props.renameTaskById}
         />
       })}
     </TaskListContainer>
