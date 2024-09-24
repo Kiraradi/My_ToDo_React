@@ -7,7 +7,7 @@ export const createNewTask = (text) => {
         id: getId(),
         text: text,
         creationTime: new Date().getTime(),
-        isTaskCompleted: false,
+        status: false,
     }
 
     return newTask;
