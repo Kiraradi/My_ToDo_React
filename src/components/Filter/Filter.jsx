@@ -4,28 +4,25 @@ import Button from "../../UI/Button/Button";
 
 import { filterData } from "./filterData";
 
-const Filter = () => {
-    const [activeButton, setActiveButton] = React.useState('All');
+const Filter = (props) => (
+    <StyledFilterContainer>
+        {
+            filterData.map(button => {
+                return <Button
+                    key={button.id}
+                    text={button.text}
+                    active={button.id === props.activeFilter}
+                    onClick={() => props.setActiveFilter(button.id)}
+                />
+            })
+        }
+    </StyledFilterContainer>
+)
 
-    return (
-        <StyledFilterContainer>
-            {
-                filterData.map(button => {
-                    return <Button
-                                key={button.id}
-                                text={button.text} 
-                                active={button.id === activeButton}
-                                onClick={() => setActiveButton(button.id)}
-                            />
-                })
-            }
-        </StyledFilterContainer>
-    )
-}
 
 export default Filter;
 
-const StyledFilterContainer = styled.div `
+const StyledFilterContainer = styled.div`
     display: flex;
     width: 100%;
     align-items: center;

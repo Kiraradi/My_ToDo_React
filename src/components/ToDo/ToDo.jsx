@@ -11,11 +11,29 @@ import { COLORS } from "../../constants";
 
 const ToDo = () => {
     const [tasksList, setTasksList] = useState([]);
+    const [activeFilter, setActiveFilter] = useState('All');
 
     const addTaskInList= (text) => {
         const newTask = createNewTask(text);
         setTasksList([...tasksList, newTask])
     }
+
+    const filterTasksList = () => {
+        switch (activeFilter) {
+            case 'All':
+                return [...tasksList];
+            case 'Active':
+                return tasksList.filter(task => task.status === false);
+            case 'Completed':
+                return tasksList.filter(task => task.status === true);
+        }
+    }
+
+    const deleteTaskById = React.useCallback((id) => {
+        setTasksList(tasksList.filter(task => task.id !== id))
+    }, [tasksList])
+
+    const filteredTasksList = React.useMemo(filterTasksList,[tasksList, activeFilter]);
 
     const changeStatusTaskById = React.useCallback((id) => {
         setTasksList((prev) => {
@@ -36,8 +54,12 @@ const ToDo = () => {
         <StyledToDo>
             <h1 className="title">Todos</h1>
             <TodoForm addTaskInList={addTaskInList}/>
-            <Filter/>
-            <TasksList tasksList={tasksList} changeStatusTaskById={changeStatusTaskById}/>
+            <Filter activeFilter={activeFilter} setActiveFilter={setActiveFilter}/>
+            <TasksList 
+                tasksList={filteredTasksList} 
+                changeStatusTaskById={changeStatusTaskById} 
+                deleteTaskById ={deleteTaskById}
+            />
         </StyledToDo>
     )
 }

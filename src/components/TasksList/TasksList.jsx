@@ -7,7 +7,12 @@ const TasksList = (props) => {
   return (
     <TaskListContainer>
       {props.tasksList.map((task) => {
-        return <TaskItem key={task.id} task={task} changeStatusTaskById={props.changeStatusTaskById}/>
+        return <TaskItem
+          key={task.id}
+          task={task}
+          changeStatusTaskById={props.changeStatusTaskById}
+          deleteTaskById={props.deleteTaskById}
+        />
       })}
     </TaskListContainer>
   )
@@ -15,7 +20,7 @@ const TasksList = (props) => {
 
 export default React.memo(TasksList);
 
-const TaskListContainer = styled.ul `
+const TaskListContainer = styled.ul`
   display: flex;
   width: 100%;
   flex-direction: column;
