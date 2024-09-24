@@ -1,3 +1,5 @@
+import React from "react";
+
 import styled from "styled-components";
 import TaskItem from "../TaskItem/TaskItem";
 
@@ -5,13 +7,13 @@ const TasksList = (props) => {
   return (
     <TaskListContainer>
       {props.tasksList.map((task) => {
-        return <TaskItem task={task} changeStatusTaskById={props.changeStatusTaskById}/>
+        return <TaskItem key={task.id} task={task} changeStatusTaskById={props.changeStatusTaskById}/>
       })}
     </TaskListContainer>
   )
 }
 
-export default TasksList
+export default React.memo(TasksList);
 
 const TaskListContainer = styled.ul `
   display: flex;

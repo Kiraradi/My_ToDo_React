@@ -9,16 +9,17 @@ const TaskItem = (props) => {
 
   return (
     <StyledTaskContainer>
-        <CheckBox 
+        <CheckBox
+          id={task.id}
           active={task.status}
-          changeActive={()=> changeStatusTaskById(task.id)}
+          onChange={changeStatusTaskById}
         />
         {task.text}
     </StyledTaskContainer>
   )
 }
 
-export default TaskItem;
+export default React.memo(TaskItem);
 
 const StyledTaskContainer = styled.li `
     display: flex;

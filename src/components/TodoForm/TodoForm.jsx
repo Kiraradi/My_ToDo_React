@@ -1,27 +1,27 @@
-import { useRef } from "react";
+import React, { useRef } from "react";
 import styled from "styled-components";
 
-import { createNewTask } from "../../services";
 import { COLORS } from "../../constants";
 
-const TodoForm = ({ addTaskInList }) => {
-    const inputRef = useRef(null);
+const TodoForm = (props) => {
+    const [taskText, setTaskText] = React.useState('');
 
-    const handleAddTaskInlist = (event) => {
+    const handelChangeTask = (event) => {
+        setTaskText(event.target.value);
+    }
+
+    const handleSubmit = (event) => {
         event.preventDefault();
-        const taskText = inputRef.current.value.trim();
+        
+         if(!taskText.trim()) return;
 
-        if (taskText) {
-            const newTask = createNewTask(taskText);
-            addTaskInList(newTask);
-            inputRef.current.value = '';
-        }
-
+         props.addTaskInList(taskText);
+         setTaskText('');
     }
 
     return (
-        <StyledForm onSubmit={handleAddTaskInlist}>
-            <input ref={inputRef} className='input' placeholder="Что нужно сделать?"/>
+        <StyledForm onSubmit={handleSubmit}>
+            <input onChange={handelChangeTask} value={taskText} className='input' placeholder="Что нужно сделать?"/>
         </StyledForm>
     )
 }
@@ -42,5 +42,4 @@ const StyledForm = styled.form`
         outline: none;
         border: 3px solid ${COLORS.red};
     }
-
 `

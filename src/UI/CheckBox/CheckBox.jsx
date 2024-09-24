@@ -1,23 +1,33 @@
 import React from "react";
-
 import styled from "styled-components";
-import checkImg from '../../images/icon-check.png';
 import { COLORS } from "../../constants";
 
-const CheckBox = (props) => (
+import checkImg from '../../images/icon-check.png';
+
+const CheckBox = (props) => {
+  const handleChange = () => {
+    props.onChange(props.id);
+  }
+  return (
     <StyledCheckBox>
       <label>
-        <input type="checkbox" checked={props.active} onChange={props.changeActive} className="checkbox"/>
+        <input
+          type="checkbox"
+          checked={props.active}
+          onChange={handleChange}
+          className="checkbox"/>
       </label>
     </StyledCheckBox>
-  )
+  )}
  
-export default CheckBox
+export default CheckBox;
 
 const StyledCheckBox = styled.div`
     display: flex;
     width: 30px;
     height: 30px;
+    align-items: center;
+    justify-content: center;
 
     .checkbox {
       width: 30px;

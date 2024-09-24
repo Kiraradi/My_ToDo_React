@@ -1,52 +1,61 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 
 import TodoForm from "../TodoForm/TodoForm";
+import TasksList from "../TasksList/TasksList";
+import Filter from "../Filter/Filter";
+
+import { createNewTask } from "../../services";
 
 import { COLORS } from "../../constants";
-import CheckBox from "../../UI/CheckBox/CheckBox";
-import TasksList from "../TasksList/TasksList";
-
 
 const ToDo = () => {
     const [tasksList, setTasksList] = useState([]);
 
-    const addTaskInList = (newTask) => {
+    const addTaskInList= (text) => {
+        const newTask = createNewTask(text);
         setTasksList([...tasksList, newTask])
     }
 
-    const changeStatusTaskById = (id) => {
-        const newTasksList = tasksList.map(task => {
-            if (task.id === id ) task.status = !task.status
-            return task;
+    const changeStatusTaskById = React.useCallback((id) => {
+        setTasksList((prev) => {
+            return prev.map(task => {            
+                if (task.id === id ) {
+                    return {
+                        ...task,
+                        status: !task.status
+                    }
+                }
+                return task;
+            })
         })
+    }, [])
 
-        setTasksList(newTasksList)
-    }
 
     return (
         <StyledToDo>
             <h1 className="title">Todos</h1>
             <TodoForm addTaskInList={addTaskInList}/>
+            <Filter/>
             <TasksList tasksList={tasksList} changeStatusTaskById={changeStatusTaskById}/>
         </StyledToDo>
     )
 }
 
-export default ToDo
+export default ToDo;
 
 
 const StyledToDo = styled.div`
     display: flex;
     flex-direction: column;
     gap: 15px;
-    margin-top: 35px;
     width: 100%;
     padding: 15px;
     background-color: ${COLORS.white};
     max-width: 550px;
-    margin-left: auto;
-    margin-right: auto;
+    margin: 35px 15px 0;
+    border: 3px solid ${COLORS.black};
+    border-radius: 15px;
 
     .title {
         font-size: 45px;
