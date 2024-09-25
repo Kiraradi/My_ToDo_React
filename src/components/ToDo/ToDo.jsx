@@ -26,8 +26,10 @@ const ToDo = () => {
   }
 
   return (
-    <StyledToDo>
+    <StyledToDoWrapper>
       <h1 className="title">Todos</h1>
+      <StyledToDo>
+      
       <header className="header">
         <button 
           className="button_toggle_all"
@@ -49,12 +51,27 @@ const ToDo = () => {
 
       )}
     </StyledToDo>
+    </StyledToDoWrapper>
+
   )
 }
 
 export default ToDo;
 
+const StyledToDoWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  width: 100%;
+  max-width: 550px;
+  margin: 35px 15px 0;
 
+  .title {
+        font-size: 45px;
+        color: ${COLORS.red};
+    }
+
+`
 const StyledToDo = styled.div`
     display: flex;
     flex-direction: column;
@@ -62,15 +79,8 @@ const StyledToDo = styled.div`
     width: 100%;
     padding: 15px;
     background-color: ${COLORS.white};
-    max-width: 550px;
-    margin: 35px 15px 0;
     position: relative;
     box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2), 0 25px 50px 0 rgba(0, 0, 0, 0.1);
-
-    .title {
-        font-size: 45px;
-        color: ${COLORS.red};
-    }
 
     .header{
       display: flex;
@@ -106,6 +116,7 @@ const StyledToDo = styled.div`
       left: 0;
       height: 50px;
       overflow: hidden;
+      z-index: 1;
       box-shadow: 0 1px 1px rgba(0, 0, 0, 0.2), 0 8px 0 -3px #f6f6f6, 0 9px 1px -3px rgba(0, 0, 0, 0.2), 0 16px 0 -6px #f6f6f6, 0 17px 2px -6px rgba(0, 0, 0, 0.2);
     }
 
@@ -115,6 +126,7 @@ const StyledToDo = styled.div`
         border-radius: 5px;
         cursor: pointer;
         padding: 5px;
+        z-index: 2;
     }
 `
 
