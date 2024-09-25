@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import styled from "styled-components";
 
 import TodoForm from "../TodoForm/TodoForm";
@@ -7,7 +7,8 @@ import Filter from "../Filter/Filter";
 
 import { COLORS } from "../../constants";
 import { useDispatch, useSelector } from "react-redux";
-import { deleteCompletedTasks, itemsLeft, toggleStatusAllTasks } from "../../store/todoSlise";
+import { deleteCompletedTasks, toggleStatusAllTasks } from "../../store/todoSlise";
+import { itemsLeft } from "../../store/todoSelectors";
 
 const ToDo = () => {
   const dispatch = useDispatch();
@@ -33,17 +34,19 @@ const ToDo = () => {
           onClick={handleToggleStatusAllTasks}
         ></button>
         <TodoForm/>
-      </header>
-      
-      <Filter/>
-      <TasksList/>
+      </header>      
       {tasksList.length > 0 && (
-        <div className="footer">
-          <p>Осталось задач : {activeTasksCounter}</p>
-          <button className="delete_all_task" onClick={handleDeleteCompletedTasks}>
-            Удалить завершенные
-          </button>
-        </div>
+        <>
+          <Filter/>
+          <TasksList/>
+          <div className="footer">
+            <p>Осталось задач : {activeTasksCounter}</p>
+            <button className="delete_all_task" onClick={handleDeleteCompletedTasks}>
+              Удалить завершенные
+            </button>
+          </div>
+        </>
+
       )}
     </StyledToDo>
   )
@@ -61,8 +64,8 @@ const StyledToDo = styled.div`
     background-color: ${COLORS.white};
     max-width: 550px;
     margin: 35px 15px 0;
-    border: 3px solid ${COLORS.black};
-    border-radius: 15px;
+    position: relative;
+    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2), 0 25px 50px 0 rgba(0, 0, 0, 0.1);
 
     .title {
         font-size: 45px;
@@ -93,6 +96,17 @@ const StyledToDo = styled.div`
         width: 100%;
         justify-content: space-between;
         align-items: center;
+    }
+
+    .footer::before {
+      content: '';
+      position: absolute;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      height: 50px;
+      overflow: hidden;
+      box-shadow: 0 1px 1px rgba(0, 0, 0, 0.2), 0 8px 0 -3px #f6f6f6, 0 9px 1px -3px rgba(0, 0, 0, 0.2), 0 16px 0 -6px #f6f6f6, 0 17px 2px -6px rgba(0, 0, 0, 0.2);
     }
 
     .delete_all_task {

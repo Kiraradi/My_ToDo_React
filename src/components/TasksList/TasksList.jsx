@@ -3,7 +3,7 @@ import React from "react";
 import styled from "styled-components";
 import TaskItem from "../TaskItem/TaskItem";
 import { useSelector } from "react-redux";
-import { filretedTasksList } from "../../store/todoSlise";
+import { filretedTasksList } from "../../store/todoSelectors";
 
 const TasksList = () => {
   const filteredList = useSelector(filretedTasksList);
