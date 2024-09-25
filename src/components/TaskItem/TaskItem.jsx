@@ -63,10 +63,17 @@ const StyledTaskContainer = styled.li`
     padding: 5px 10px;
     border: 1px solid ${baseTheme.colors.grey};
     border-radius: 5px;
+
     .task_text {
       width: 60%;
       white-space: normal;
       font-size: ${baseTheme.f_size.text};
+    }
+
+    @media (max-width: 400px) {
+      .task_text {
+      font-size: ${baseTheme.f_size.b_des};
+    }
     }
 
     .task_text_active{
