@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 
-import { COLORS } from "../../constants";
+import { baseTheme } from "../../theme";
 import CheckBox from "../../UI/CheckBox/CheckBox";
 import EditTask from "../EditTask/EditTask";
 
@@ -61,17 +61,17 @@ const StyledTaskContainer = styled.li`
     align-items: center;
     justify-content: space-between;
     padding: 5px 10px;
-    border: 1px solid ${COLORS.grey};
+    border: 1px solid ${baseTheme.colors.grey};
     border-radius: 5px;
     .task_text {
       width: 60%;
       white-space: normal;
-      font-size: 25px;
+      font-size: ${baseTheme.f_size.text};
     }
 
     .task_text_active{
       text-decoration: line-through;
-      color: ${COLORS.grey};
+      color: ${baseTheme.colors.grey};
     }
     .buttons_wrapper {
       display: flex;
@@ -87,7 +87,7 @@ const StyledTaskContainer = styled.li`
       background-position: center;
       cursor: pointer;
       border: none;
-      background-color: ${COLORS.white};
+      background-color: ${baseTheme.colors.white};
     }
 
     .button_delete {

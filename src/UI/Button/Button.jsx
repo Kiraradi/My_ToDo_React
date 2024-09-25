@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { COLORS } from '../../constants';
+import { baseTheme } from '../../theme';
 
 const Button = (props) => (
     <StyledButtonContainer  >
@@ -30,27 +30,27 @@ const StyledButtonContainer = styled.div `
         display: flex;
         align-items: center;
         justify-content: center;
-        background-color: ${COLORS.white};
+        background-color: ${baseTheme.colors.white};
         cursor: pointer;
         font-weight: 600;
-        border: 2px solid ${COLORS.black};
+        border: 2px solid ${baseTheme.colors.black};
         border-radius: 5px;
         font-size: unset;
         text-transform: uppercase;
     }
 
     @media(max-width: 550px) {
-        font-size: 12px;
+        font-size: ${baseTheme.f_size.b_des};
         max-width: 100px;
     }
 
     @media(max-width: 380px) {
-        font-size: 9px;
+        font-size: ${baseTheme.f_size.b_mob};
         max-width: 80px;
     }
     
 
     .active {
-        background-color: ${COLORS.red};
+        background-color: ${baseTheme.colors.red};
     }
 `

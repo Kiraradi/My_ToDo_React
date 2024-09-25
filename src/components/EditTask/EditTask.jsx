@@ -1,6 +1,6 @@
 import React from 'react'
 import styled from "styled-components";
-import { COLORS } from "../../constants";
+import { baseTheme } from '../../theme';
 import { useDispatch } from "react-redux";
 
 import { editTask } from '../../store/todoSlise';
@@ -14,7 +14,7 @@ const EditTask = (props) => {
         setTaskText(event.target.value)
     }
 
-    const handleOnRename = (event) => {
+    const handleOnEdit = (event) => {
         event.preventDefault();
 
         if (!taskText.trim()) return;
@@ -29,9 +29,9 @@ const EditTask = (props) => {
     }
     return (
         <StyledEditTask onSubmit={(event) => { event.preventDefault() }}>
-            <input className='rename_input' value={taskText} onChange={handleOnChange} />
-            <button className='button_rename_task' onClick={handleOnRename}></button>
-            <button className='button_close_rename' onClick={props.toggleRename}></button>
+            <input className='edit_input' value={taskText} onChange={handleOnChange} />
+            <button className='button_rename_task' onClick={handleOnEdit}></button>
+            <button className='button_close_edit' onClick={props.toggleRename}></button>
         </StyledEditTask>
     )
 }
@@ -43,14 +43,14 @@ const StyledEditTask = styled.form`
     align-items: center;
     width: 100%;
     gap: 20px;
-    .rename_input {
+    .edit_input {
         width: 100%;
         height: 30px;
         padding-left: 25px;
         border-radius: 5px;
     }
 
-    .button_close_rename {
+    .button_close_edit {
         width: 30px;
         height: 30px;    
         background-repeat: no-repeat;
@@ -58,7 +58,7 @@ const StyledEditTask = styled.form`
         background-position: center;
         cursor: pointer;
         border: none;
-        background-color: ${COLORS.white};
+        background-color: ${baseTheme.colors.white};
         background-image: url('/icons/close_image.svg');
     }
 
@@ -70,7 +70,7 @@ const StyledEditTask = styled.form`
         background-position: center;
         cursor: pointer;
         border: none;
-        background-color: ${COLORS.white};
+        background-color: ${baseTheme.colors.white};
         background-image: url('/icons/icon-check.png');
     }
 `

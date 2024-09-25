@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import { COLORS } from "../../constants";
+import { baseTheme } from "../../theme";
 
 const CheckBox = (props) => {
  
@@ -33,18 +33,18 @@ const StyledCheckBox = styled.div`
     .checkbox {
       width: 30px;
       height: 30px;
-      border: 2px solid ${COLORS.black};
+      border: 2px solid ${baseTheme.colors.black};
       appearance: none;
       cursor: pointer;
       border-radius: 30px;
     }
 
     .checkbox:checked {
-      background-color: ${COLORS.white};
+      background-color: ${baseTheme.colors.white};
     }
 
     .checkbox:checked {
-      border: 2px solid ${COLORS.green};
+      border: 2px solid ${baseTheme.colors.green};
     }
     .checkbox:checked::before {
       content: "";

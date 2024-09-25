@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 
-import { COLORS } from "../../constants";
+import { baseTheme } from "../../theme";
 import { useDispatch } from "react-redux";
 import { createNewTask } from "../../services";
 import { addTasks } from "../../store/todoSlise";
@@ -44,6 +44,6 @@ const StyledForm = styled.form`
 
     .todo_input:focus {
         outline: none;
-        border: 3px solid ${COLORS.red};
+        border: 3px solid ${baseTheme.colors.red};
     }
 `

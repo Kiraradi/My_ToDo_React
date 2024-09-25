@@ -5,7 +5,7 @@ import TodoForm from "../TodoForm/TodoForm";
 import TasksList from "../TasksList/TasksList";
 import Filter from "../Filter/Filter";
 
-import { COLORS } from "../../constants";
+import { baseTheme } from "../../theme";
 import { useDispatch, useSelector } from "react-redux";
 import { deleteCompletedTasks, toggleStatusAllTasks } from "../../store/todoSlise";
 import { itemsLeft } from "../../store/todoSelectors";
@@ -67,8 +67,8 @@ const StyledToDoWrapper = styled.div`
   margin: 35px 15px 0;
 
   .title {
-        font-size: 45px;
-        color: ${COLORS.red};
+        font-size: ${baseTheme.f_size.header};
+        color: ${baseTheme.colors.red};
     }
 
 `
@@ -78,7 +78,7 @@ const StyledToDo = styled.div`
     gap: 15px;
     width: 100%;
     padding: 15px;
-    background-color: ${COLORS.white};
+    background-color: ${baseTheme.colors.white};
     position: relative;
     box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2), 0 25px 50px 0 rgba(0, 0, 0, 0.1);
 
@@ -94,7 +94,7 @@ const StyledToDo = styled.div`
       height: 30px;
       border: none;
       cursor: pointer;
-      background-color: ${COLORS.white};
+      background-color: ${baseTheme.colors.white};
       background-image: url('/icons/check_all_icon.svg');
       background-position: center;
       background-repeat: no-repeat;
@@ -121,8 +121,8 @@ const StyledToDo = styled.div`
     }
 
     .delete_all_task {
-        background-color: ${COLORS.white};
-        border: 2px solid ${COLORS.black};
+        background-color: ${baseTheme.colors.white};
+        border: 2px solid ${baseTheme.colors.black};
         border-radius: 5px;
         cursor: pointer;
         padding: 5px;
