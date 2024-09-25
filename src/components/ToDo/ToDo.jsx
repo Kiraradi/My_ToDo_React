@@ -7,20 +7,20 @@ import Filter from "../Filter/Filter";
 
 import { COLORS } from "../../constants";
 import { useDispatch, useSelector } from "react-redux";
-import { deleteCompletedTasks, itemsLest, toggleStatusAllTasks } from "../../store/todoSlise";
+import { deleteCompletedTasks, itemsLeft, toggleStatusAllTasks } from "../../store/todoSlise";
 
 const ToDo = () => {
-  const itemsLestNumber = useSelector(itemsLest);
-  const {tasksList} = useSelector(state => state.todo);
-
   const dispatch = useDispatch();
+
+  const activeTasksCounter  = useSelector(itemsLeft);
+  const tasksList = useSelector(state => state.todo.tasksList);
 
   const handleDeleteCompletedTasks = () => {
     dispatch(deleteCompletedTasks())
   }
 
   const handleToggleStatusAllTasks = () => {
-    const newStatus = !!itemsLestNumber
+    const newStatus = !!activeTasksCounter
     dispatch(toggleStatusAllTasks(newStatus))
   }
 
@@ -39,7 +39,7 @@ const ToDo = () => {
       <TasksList/>
       {tasksList.length > 0 && (
         <div className="footer">
-          <p>Осталось задач : {itemsLestNumber}</p>
+          <p>Осталось задач : {activeTasksCounter}</p>
           <button className="delete_all_task" onClick={handleDeleteCompletedTasks}>
             Удалить завершенные
           </button>

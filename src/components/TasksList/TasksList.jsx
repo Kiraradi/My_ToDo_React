@@ -6,7 +6,7 @@ import { useSelector } from "react-redux";
 import { filretedTasksList } from "../../store/todoSlise";
 
 const TasksList = () => {
-  const filteredList = useSelector(filretedTasksList)
+  const filteredList = useSelector(filretedTasksList);
 
   return (
     <TaskListContainer>

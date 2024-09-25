@@ -1,5 +1,4 @@
 import { createSelector, createSlice } from "@reduxjs/toolkit";
-import { createNewTask } from "../services";;
 
 const initialState = {
     currentFilter: 'All',
@@ -11,7 +10,7 @@ export const todoSlice = createSlice({
     initialState,
     reducers: {
         addTasks(state, action) {
-            state.tasksList.push(createNewTask(action.payload))
+            state.tasksList.push(action.payload)
         },
         removeTask(state, action) {
             const id = action.payload;
@@ -73,6 +72,6 @@ export const filretedTasksList = createSelector([tasksList,currentFilter], (task
     }
 })
 
-export const itemsLest = createSelector([tasksList], (tasksList) => {
+export const itemsLeft = createSelector([tasksList], (tasksList) => {
     return tasksList.filter(task => task.status === false).length
 })

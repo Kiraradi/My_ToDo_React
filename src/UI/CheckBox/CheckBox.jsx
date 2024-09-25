@@ -26,11 +26,14 @@ const StyledCheckBox = styled.div`
     align-items: center;
     justify-content: center;
 
+    label{
+      position: relative;
+    }
+
     .checkbox {
       width: 30px;
       height: 30px;
       border: 2px solid ${COLORS.black};
-      position: relative;
       appearance: none;
       cursor: pointer;
       border-radius: 30px;
@@ -40,6 +43,9 @@ const StyledCheckBox = styled.div`
       background-color: ${COLORS.white};
     }
 
+    .checkbox:checked {
+      border: 2px solid ${COLORS.green};
+    }
     .checkbox:checked::before {
       content: "";
       display: flex;
@@ -47,10 +53,10 @@ const StyledCheckBox = styled.div`
       height: 30px;
       position: absolute;
       top: 0;
-      left: 0;
-      background-image: url('/icons/icon-check.png');
+      left: 0;      
+      background-image: url('/icons/icon-check.svg');
       background-position: center;
       background-repeat: no-repeat;
-      background-size: 15px;
+      background-size: 23px;
     }
 `; 

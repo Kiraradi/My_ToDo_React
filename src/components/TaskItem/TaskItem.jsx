@@ -38,8 +38,7 @@ const TaskItem = (props) => {
           <EditTask task={task} EditTaskById={EditTaskById} toggleRename={toggleRename} />
         ) : (
           <>
-
-            <span className="task_text">{task.text}</span>
+            <span className={`task_text ${task.status && 'task_text_active'}`}>{task.text}</span>
             <div className="buttons_wrapper">
               <button className="button button_rename" onClick={toggleRename}></button>
               <button className="button button_delete" onClick={deleteTask}></button>
@@ -67,6 +66,12 @@ const StyledTaskContainer = styled.li`
     .task_text {
       width: 60%;
       white-space: normal;
+      font-size: 25px;
+    }
+
+    .task_text_active{
+      text-decoration: line-through;
+      color: ${COLORS.grey};
     }
     .buttons_wrapper {
       display: flex;

@@ -1,8 +1,9 @@
-import React, { useRef } from "react";
+import React from "react";
 import styled from "styled-components";
 
 import { COLORS } from "../../constants";
 import { useDispatch } from "react-redux";
+import { createNewTask } from "../../services";
 import { addTasks } from "../../store/todoSlise";
 
 const TodoForm = () => {
@@ -15,33 +16,33 @@ const TodoForm = () => {
 
     const handleSubmit = (event) => {
         event.preventDefault();
-        
-         if(!taskText.trim()) return;
 
-         dispatch(addTasks(taskText))
-         setTaskText('');
+        if (!taskText.trim()) return;
+        const newTask = createNewTask(taskText);
+        dispatch(addTasks(newTask))
+        setTaskText('');
     }
 
     return (
         <StyledForm onSubmit={handleSubmit}>
-            <input onChange={handelChangeTask} value={taskText} className='input' placeholder="Что нужно сделать?"/>
+            <input onChange={handelChangeTask} value={taskText} className='todo_input' placeholder="Что нужно сделать?" />
         </StyledForm>
     )
 }
 
-export default TodoForm
+export default TodoForm;
 
 const StyledForm = styled.form`
     width: 100%;
 
-    .input {
+    .todo_input {
         width: 100%;
         height: 40px;
         padding-left: 10px;
         border-radius: 5px;
     }
 
-    .input:focus {
+    .todo_input:focus {
         outline: none;
         border: 3px solid ${COLORS.red};
     }
