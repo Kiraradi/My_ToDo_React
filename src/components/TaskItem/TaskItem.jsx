@@ -3,41 +3,46 @@ import styled from "styled-components";
 
 import { COLORS } from "../../constants";
 import CheckBox from "../../UI/CheckBox/CheckBox";
-import RenameTask from "../RenameTask/RenameTask";
+import EditTask from "../EditTask/EditTask";
 
-import closeImg from '../../images/close_image.svg'
-import renameImg from '../../images/rename_img.svg'
+import { useDispatch } from "react-redux";
+import { removeTask, toggleStatus } from "../../store/todoSlise";
 
 
 const TaskItem = (props) => {
-  const [isRename, setRename] = React.useState(false);
-  const { task, changeStatusTaskById, deleteTaskById, renameTaskById } = props;
+  const { task, EditTaskById } = props;
+  const [isEditing, setIsEditing] = React.useState(false);
+  const dispatch = useDispatch();
 
   const deleteTask = () => {
-    deleteTaskById(task.id)
+    dispatch(removeTask(task.id));
+  }
+
+  const toggleStatusById = () => {
+    dispatch(toggleStatus(task.id));
   }
 
   const toggleRename = () => {
-    setRename(prev => !prev);
+    setIsEditing(prev => !prev);
   }
-
 
   return (
     <StyledTaskContainer>
+      <CheckBox
+        id={task.id}
+        active={task.status}
+        onChange={toggleStatusById}
+      />
       {
-        isRename ? (
-          <RenameTask task={task} renameTaskById={renameTaskById} toggleRename={toggleRename}/>
+        isEditing ? (
+          <EditTask task={task} EditTaskById={EditTaskById} toggleRename={toggleRename} />
         ) : (
           <>
-            <CheckBox
-              id={task.id}
-              active={task.status}
-              onChange={changeStatusTaskById}
-            />
-            <span className="task_text">{task.text}</span>            
+
+            <span className="task_text">{task.text}</span>
             <div className="buttons_wrapper">
               <button className="button button_rename" onClick={toggleRename}></button>
-              <button className="button button_close" onClick={deleteTask}></button>
+              <button className="button button_delete" onClick={deleteTask}></button>
             </div>
           </>
         )
@@ -52,6 +57,7 @@ export default React.memo(TaskItem);
 const StyledTaskContainer = styled.li`
     display: flex;
     width: 100%;
+    gap: 10px;
     min-height: 50px;
     align-items: center;
     justify-content: space-between;
@@ -60,6 +66,7 @@ const StyledTaskContainer = styled.li`
     border-radius: 5px;
     .task_text {
       width: 60%;
+      white-space: normal;
     }
     .buttons_wrapper {
       display: flex;
@@ -78,11 +85,11 @@ const StyledTaskContainer = styled.li`
       background-color: ${COLORS.white};
     }
 
-    .button_close {
-      background-image: url(${closeImg});
+    .button_delete {
+      background-image: url('/icons/delete_icon.svg');
     }
 
     .button_rename {
-      background-image: url(${renameImg});
+      background-image: url('/icons/rename_img.svg');
     }
 `

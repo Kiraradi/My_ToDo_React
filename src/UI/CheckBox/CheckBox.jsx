@@ -2,19 +2,15 @@ import React from "react";
 import styled from "styled-components";
 import { COLORS } from "../../constants";
 
-import checkImg from '../../images/icon-check.png';
-
 const CheckBox = (props) => {
-  const handleChange = () => {
-    props.onChange(props.id);
-  }
+ 
   return (
     <StyledCheckBox>
       <label>
         <input
           type="checkbox"
           checked={props.active}
-          onChange={handleChange}
+          onChange={props.onChange}
           className="checkbox"
         />
       </label>
@@ -52,7 +48,7 @@ const StyledCheckBox = styled.div`
       position: absolute;
       top: 0;
       left: 0;
-      background-image: url(${checkImg});
+      background-image: url('/icons/icon-check.png');
       background-position: center;
       background-repeat: no-repeat;
       background-size: 15px;

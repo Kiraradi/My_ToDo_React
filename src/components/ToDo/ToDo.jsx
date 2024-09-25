@@ -5,91 +5,48 @@ import TodoForm from "../TodoForm/TodoForm";
 import TasksList from "../TasksList/TasksList";
 import Filter from "../Filter/Filter";
 
-import { createNewTask } from "../../services";
-
 import { COLORS } from "../../constants";
+import { useDispatch, useSelector } from "react-redux";
+import { deleteCompletedTasks, itemsLest, toggleStatusAllTasks } from "../../store/todoSlise";
 
 const ToDo = () => {
-    const [tasksList, setTasksList] = useState([]);
-    const [activeFilter, setActiveFilter] = useState('All');
+  const itemsLestNumber = useSelector(itemsLest);
+  const {tasksList} = useSelector(state => state.todo);
 
-    const addTaskInList = (text) => {
-        const newTask = createNewTask(text);
-        setTasksList([...tasksList, newTask])
-    }
+  const dispatch = useDispatch();
 
-    const filterTasksList = (activeFilter) => {
-        switch (activeFilter) {
-            case 'All':
-                return [...tasksList];
-            case 'Active':
-                return tasksList.filter(task => task.status === false);
-            case 'Completed':
-                return tasksList.filter(task => task.status === true);
-        }
-    }
+  const handleDeleteCompletedTasks = () => {
+    dispatch(deleteCompletedTasks())
+  }
 
-    const deleteTaskById = React.useCallback((id) => {
-        setTasksList(tasksList.filter(task => task.id !== id))
-    }, [tasksList])
+  const handleToggleStatusAllTasks = () => {
+    const newStatus = !!itemsLestNumber
+    dispatch(toggleStatusAllTasks(newStatus))
+  }
 
-    const renameTaskById = (id, text) => {
-        setTasksList((prev) => {
-            return prev.map(task => {
-                if (task.id === id) {
-                    return {
-                        ...task,
-                        text: text
-                    }
-                }
-                return task;
-            })
-        })
-    }
-
-    const deleteAllTasks = () => {
-        setTasksList([])
-    }
-
-    const filteredTasksList = React.useMemo(() => filterTasksList(activeFilter), [tasksList, activeFilter]);
-    const leftTasks  = React.useMemo(() => filterTasksList('Active'), [tasksList, activeFilter]);
-
-    const changeStatusTaskById = React.useCallback((id) => {
-        setTasksList((prev) => {
-            return prev.map(task => {
-                if (task.id === id) {
-                    return {
-                        ...task,
-                        status: !task.status
-                    }
-                }
-                return task;
-            })
-        })
-    }, [])
-
-
-    return (
-        <StyledToDo>
-            <h1 className="title">Todos</h1>
-            <TodoForm addTaskInList={addTaskInList} />
-            <Filter activeFilter={activeFilter} setActiveFilter={setActiveFilter} />
-            <TasksList
-                tasksList={filteredTasksList}
-                changeStatusTaskById={changeStatusTaskById}
-                deleteTaskById={deleteTaskById}
-                renameTaskById={renameTaskById}
-            />
-            {tasksList.length ? (
-                <div className="footer">
-                    <p>Осталось задач : {leftTasks.length}</p>
-                    <button className="delete_all_task" onClick={deleteAllTasks}>Удалить все задачи</button>
-                </div>
-            ) : (
-                <></>
-            )}
-        </StyledToDo>
-    )
+  return (
+    <StyledToDo>
+      <h1 className="title">Todos</h1>
+      <header className="header">
+        <button 
+          className="button_toggle_all"
+          onClick={handleToggleStatusAllTasks}
+        ></button>
+        <TodoForm/>
+      </header>
+      
+      <Filter/>
+      <TasksList/>
+      {tasksList.length > 0 && (
+        <div className="footer">
+          <p>Осталось задач : {itemsLestNumber}</p>
+          <button className="delete_all_task" onClick={handleDeleteCompletedTasks}>
+            Удалить завершенные
+          </button>
+        </div>
+      )}
+    </StyledToDo>
+  )
 }
 
 export default ToDo;
@@ -110,6 +67,25 @@ const StyledToDo = styled.div`
     .title {
         font-size: 45px;
         color: ${COLORS.red};
+    }
+
+    .header{
+      display: flex;
+      width: 100%;
+      gap: 10px;
+      align-items: center;
+    }
+
+    .button_toggle_all {
+      width: 30px;
+      height: 30px;
+      border: none;
+      cursor: pointer;
+      background-color: ${COLORS.white};
+      background-image: url('/icons/check_all_icon.svg');
+      background-position: center;
+      background-repeat: no-repeat;
+      background-size: 25px;
     }
 
     .footer {

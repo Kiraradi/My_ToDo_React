@@ -2,9 +2,12 @@ import React, { useRef } from "react";
 import styled from "styled-components";
 
 import { COLORS } from "../../constants";
+import { useDispatch } from "react-redux";
+import { addTasks } from "../../store/todoSlise";
 
-const TodoForm = (props) => {
+const TodoForm = () => {
     const [taskText, setTaskText] = React.useState('');
+    const dispatch = useDispatch();
 
     const handelChangeTask = (event) => {
         setTaskText(event.target.value);
@@ -15,7 +18,7 @@ const TodoForm = (props) => {
         
          if(!taskText.trim()) return;
 
-         props.addTaskInList(taskText);
+         dispatch(addTasks(taskText))
          setTaskText('');
     }
 

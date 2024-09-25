@@ -2,17 +2,18 @@ import React from "react";
 
 import styled from "styled-components";
 import TaskItem from "../TaskItem/TaskItem";
+import { useSelector } from "react-redux";
+import { filretedTasksList } from "../../store/todoSlise";
 
-const TasksList = (props) => {
+const TasksList = () => {
+  const filteredList = useSelector(filretedTasksList)
+
   return (
     <TaskListContainer>
-      {props.tasksList.map((task) => {
+      {filteredList.map((task) => {
         return <TaskItem
           key={task.id}
           task={task}
-          changeStatusTaskById={props.changeStatusTaskById}
-          deleteTaskById={props.deleteTaskById}
-          renameTaskById={props.renameTaskById}
         />
       })}
     </TaskListContainer>

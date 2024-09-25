@@ -1,11 +1,13 @@
 import React from 'react'
 import styled from "styled-components";
 import { COLORS } from "../../constants";
-import closeImg from '../../images/close_image.svg'
-import checkImg from '../../images/icon-check.png';
+import { useDispatch } from "react-redux";
 
-const RenameTask = (props) => {
+import { editTask } from '../../store/todoSlise';
+
+const EditTask = (props) => {
     const [taskText, setTaskText] = React.useState(props.task.text);
+    const dispatch = useDispatch();
 
     const handleOnChange = (event) => {
         event.preventDefault();
@@ -15,23 +17,28 @@ const RenameTask = (props) => {
     const handleOnRename = (event) => {
         event.preventDefault();
 
-        if(!taskText.trim()) return;
+        if (!taskText.trim()) return;
 
-        props.renameTaskById(props.task.id, taskText);
+        dispatch(editTask(
+            {
+                newText: taskText,
+                id: props.task.id
+            }
+        ));
         props.toggleRename();
     }
-  return (
-    <StyledRenameTask onSubmit={(event) => {event.preventDefault()}}>
-        <input className='rename_input' value={taskText}  onChange={handleOnChange}/>
-        <button className='button_rename_task' onClick={handleOnRename}></button>
-        <button className='button_close_rename' onClick={props.toggleRename}></button>
-    </StyledRenameTask>
-  )
+    return (
+        <StyledEditTask onSubmit={(event) => { event.preventDefault() }}>
+            <input className='rename_input' value={taskText} onChange={handleOnChange} />
+            <button className='button_rename_task' onClick={handleOnRename}></button>
+            <button className='button_close_rename' onClick={props.toggleRename}></button>
+        </StyledEditTask>
+    )
 }
 
-export default RenameTask
+export default EditTask;
 
-const StyledRenameTask = styled.form `
+const StyledEditTask = styled.form`
     display: flex; 
     align-items: center;
     width: 100%;
@@ -52,7 +59,7 @@ const StyledRenameTask = styled.form `
         cursor: pointer;
         border: none;
         background-color: ${COLORS.white};
-        background-image: url(${closeImg});
+        background-image: url('/icons/close_image.svg');
     }
 
     .button_rename_task {
@@ -64,6 +71,6 @@ const StyledRenameTask = styled.form `
         cursor: pointer;
         border: none;
         background-color: ${COLORS.white};
-        background-image: url(${checkImg});
+        background-image: url('/icons/icon-check.png');
     }
 `
