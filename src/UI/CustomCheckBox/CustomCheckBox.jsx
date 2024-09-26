@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 
-const CheckBox = (props) => { 
+const CustomCheckBox = (props) => { 
   return (
     <StyledCheckBox>
       <label>
@@ -15,7 +15,7 @@ const CheckBox = (props) => {
     </StyledCheckBox>
   )}
  
-export default CheckBox;
+export default CustomCheckBox;
 
 const StyledCheckBox = styled.div`
     display: flex;

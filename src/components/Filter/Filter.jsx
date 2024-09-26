@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import Button from "../../UI/Button/Button";
+import CustomButton from "../../UI/CustomButton/CustomButton";
 
 import { filterData } from "./filterData";
 import { useDispatch, useSelector } from "react-redux";
@@ -11,7 +11,7 @@ const Filter = () => {
 
   const dispatch = useDispatch();
 
-  const handleOnClick = (id) => {
+  const handleClick = (id) => {
     if (currentFilter === id) {
       return;
     }
@@ -23,11 +23,11 @@ const Filter = () => {
     <StyledFilterContainer>
       {
         filterData.map(button => {
-          return <Button
+          return <CustomButton
             key={button.id}
             text={button.text}
             active={button.id === currentFilter}
-            onClick={() => handleOnClick(button.id)}
+            onClick={() => handleClick(button.id)}
           />
         })
       }

@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 
-import CheckBox from "../../UI/CheckBox/CheckBox";
+import CustomCheckBox from "../../UI/CustomCheckBox/CustomCheckBox";
 import EditTask from "../EditTask/EditTask";
 
 import { useDispatch } from "react-redux";
@@ -9,7 +9,7 @@ import { removeTask, toggleStatus } from "../../store/todoSlise";
 
 
 const TaskItem = (props) => {
-  const { task, EditTaskById } = props;
+  const { task } = props;
   const [isEditing, setIsEditing] = React.useState(false);
   const dispatch = useDispatch();
 
@@ -27,14 +27,14 @@ const TaskItem = (props) => {
 
   return (
     <StyledTaskContainer>
-      <CheckBox
+      <CustomCheckBox
         id={task.id}
         active={task.status}
         onChange={toggleStatusById}
       />
       {
         isEditing ? (
-          <EditTask task={task} EditTaskById={EditTaskById} toggleEdit={toggleEdit} />
+          <EditTask task={task} toggleEdit={toggleEdit} />
         ) : (
           <>
             <span className={`task_text ${task.status && 'task_text_active'}`}>{task.text}</span>

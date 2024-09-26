@@ -4,7 +4,7 @@ import styled from "styled-components";
 import { useDispatch } from "react-redux";
 import { createNewTask } from "../../services";
 import { addTasks } from "../../store/todoSlise";
-import Input from "../Input/Input";
+import CustomInput from "../CustomInput/CustomInput";
 
 const TodoForm = () => {
     const [taskText, setTaskText] = React.useState('');
@@ -27,7 +27,7 @@ const TodoForm = () => {
 
     return (
         <StyledForm onSubmit={handleSubmit}>
-            <Input onChange={handelChangeTask} value={taskText} className='todo_input' placeholder="Что нужно сделать?"/>
+            <CustomInput onChange={handelChangeTask} value={taskText} className='todo_input' placeholder="Что нужно сделать?"/>
         </StyledForm>
     )
 }

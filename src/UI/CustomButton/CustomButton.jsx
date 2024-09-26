@@ -1,10 +1,10 @@
 import React from 'react';
 import styled from 'styled-components';
 
-const Button = (props) => (
-    <StyledButtonContainer  >
+const CustomButton = (props) => (
+    <StyledButtonContainer status={props.active} >
         <button
-            className={props.active ? 'button active' : 'button'}
+            className={'button'}
             onClick={props.onClick}
         >
             {props.text}
@@ -12,7 +12,7 @@ const Button = (props) => (
     </StyledButtonContainer>
 )
 
-export default Button;
+export default CustomButton;
 
 const StyledButtonContainer = styled.div `
     display: flex;
@@ -28,7 +28,7 @@ const StyledButtonContainer = styled.div `
         display: flex;
         align-items: center;
         justify-content: center;
-        background-color: ${({theme}) => theme.colors.white};
+        background-color: ${({status, theme}) =>  status ? theme.colors.red : theme.colors.white};
         cursor: pointer;
         font-weight: 600;
         border: 2px solid ${({theme}) => theme.colors.black};
@@ -45,10 +45,5 @@ const StyledButtonContainer = styled.div `
     @media(max-width: 380px) {
         font-size: ${({theme}) => theme.f_size.b_mob};
         max-width: 80px;
-    }
-    
-
-    .active {
-        background-color: ${({theme}) => theme.colors.red};
     }
 `

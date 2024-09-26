@@ -2,18 +2,18 @@ import React from 'react'
 import styled from "styled-components";
 import { useDispatch } from "react-redux";
 import { editTask } from '../../store/todoSlise';
-import Input from '../Input/Input';
+import CustomInput from '../CustomInput/CustomInput';
 
 const EditTask = (props) => {
     const [taskText, setTaskText] = React.useState(props.task.text);
     const dispatch = useDispatch();
 
-    const onChange = (event) => {
+    const handleChange = (event) => {
         event.preventDefault();
         setTaskText(event.target.value);
     }
 
-    const handleOnEdit = (event) => {
+    const handleEdit = (event) => {
         event.preventDefault();
 
         if (!taskText.trim()) {
@@ -30,8 +30,8 @@ const EditTask = (props) => {
     }
     return (
         <StyledEditTask>
-            <Input className='edit_input' value={taskText} onChange={onChange}/>
-            <button className='button_edit_task' onClick={handleOnEdit}></button>
+            <CustomInput className='edit_input' value={taskText} onChange={handleChange}/>
+            <button className='button_edit_task' onClick={handleEdit}></button>
             <button className='button_close_edit' onClick={props.toggleEdit}></button>
         </StyledEditTask>
     )
