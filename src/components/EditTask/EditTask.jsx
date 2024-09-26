@@ -1,8 +1,8 @@
 import React from 'react'
 import styled from "styled-components";
 import { useDispatch } from "react-redux";
-
 import { editTask } from '../../store/todoSlise';
+import Input from '../Input/Input';
 
 const EditTask = (props) => {
     const [taskText, setTaskText] = React.useState(props.task.text);
@@ -30,7 +30,7 @@ const EditTask = (props) => {
     }
     return (
         <StyledEditTask>
-            <input className='edit_input' value={taskText} onChange={onChange} />
+            <Input className='edit_input' value={taskText} onChange={onChange}/>
             <button className='button_edit_task' onClick={handleOnEdit}></button>
             <button className='button_close_edit' onClick={props.toggleEdit}></button>
         </StyledEditTask>
