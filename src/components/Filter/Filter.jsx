@@ -12,10 +12,13 @@ const Filter = () => {
   const dispatch = useDispatch();
 
   const handleOnClick = (id) => {
-    if(currentFilter === id) return;
-    
+    if (currentFilter === id) {
+      return;
+    }
+
     dispatch(changeCurrentFilter(id));
   }
+  
   return (
     <StyledFilterContainer>
       {

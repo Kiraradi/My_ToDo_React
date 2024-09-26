@@ -1,8 +1,6 @@
 import React from 'react';
 import styled from "styled-components";
 
-import { baseTheme } from '../../theme';
-
 const Description = () => {
     return (
         <StyledDescription >
@@ -19,13 +17,13 @@ export default Description;
 const StyledDescription = styled.div`
     display: flex;
     .description_text {
-        font-size: ${baseTheme.f_size.b_des};
+        font-size: ${({theme}) => theme.f_size.b_des};
     }
 
     .description_link {
         margin-left: 15px;
-        font-size: ${baseTheme.f_size.text};
-        color: ${baseTheme.colors.black};
+        font-size: ${({theme}) => theme.f_size.text};
+        color: ${({theme}) => theme.colors.black};
         text-decoration: none;
         font-weight: 600;
     }

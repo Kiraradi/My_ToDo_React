@@ -1,4 +1,4 @@
-import { createSelector, createSlice } from "@reduxjs/toolkit";
+import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
     currentFilter: 'All',
@@ -10,11 +10,11 @@ export const todoSlice = createSlice({
     initialState,
     reducers: {
         addTasks(state, action) {
-            state.tasksList.push(action.payload)
+            state.tasksList.push(action.payload);
         },
         removeTask(state, action) {
             const id = action.payload;
-            state.tasksList = state.tasksList.filter(task => task.id !== id)
+            state.tasksList = state.tasksList.filter(task => task.id !== id);
         },
         toggleStatus(state, action) {
             const id = action.payload;
@@ -24,7 +24,7 @@ export const todoSlice = createSlice({
                 }
 
                 return task;
-            })
+            });
         },
         editTask(state, action) {
             const {newText, id} = action.payload;
@@ -35,18 +35,18 @@ export const todoSlice = createSlice({
                 }
 
                 return task;
-            })
+            });
         },
         changeCurrentFilter(state, action) {
-            const newFilter = action.payload
+            const newFilter = action.payload;
 
             state.currentFilter = newFilter;
         },
         deleteCompletedTasks(state) {
-            state.tasksList = state.tasksList.filter(task => task.status === false);
+            state.tasksList = state.tasksList.filter(task => !task.status);
         },
         toggleStatusAllTasks(state, action) {
-            const newStatus = action.payload
+            const newStatus = action.payload;
             state.tasksList = state.tasksList.map((task) => {
                 task.status = newStatus
                 return task

@@ -1,6 +1,5 @@
 import React from 'react';
 import styled from 'styled-components';
-import { baseTheme } from '../../theme';
 
 const Button = (props) => (
     <StyledButtonContainer  >
@@ -14,7 +13,6 @@ const Button = (props) => (
 )
 
 export default Button;
-
 
 const StyledButtonContainer = styled.div `
     display: flex;
@@ -30,27 +28,27 @@ const StyledButtonContainer = styled.div `
         display: flex;
         align-items: center;
         justify-content: center;
-        background-color: ${baseTheme.colors.white};
+        background-color: ${({theme}) => theme.colors.white};
         cursor: pointer;
         font-weight: 600;
-        border: 2px solid ${baseTheme.colors.black};
+        border: 2px solid ${({theme}) => theme.colors.black};
         border-radius: 5px;
         font-size: unset;
         text-transform: uppercase;
     }
 
     @media(max-width: 550px) {
-        font-size: ${baseTheme.f_size.b_des};
+        font-size: ${({theme}) => theme.f_size.b_des};
         max-width: 100px;
     }
 
     @media(max-width: 380px) {
-        font-size: ${baseTheme.f_size.b_mob};
+        font-size: ${({theme}) => theme.f_size.b_mob};
         max-width: 80px;
     }
     
 
     .active {
-        background-color: ${baseTheme.colors.red};
+        background-color: ${({theme}) => theme.colors.red};
     }
 `

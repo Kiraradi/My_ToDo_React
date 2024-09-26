@@ -1,7 +1,6 @@
 import React from "react";
 import styled from "styled-components";
 
-import { baseTheme } from "../../theme";
 import CheckBox from "../../UI/CheckBox/CheckBox";
 import EditTask from "../EditTask/EditTask";
 
@@ -22,7 +21,7 @@ const TaskItem = (props) => {
     dispatch(toggleStatus(task.id));
   }
 
-  const toggleRename = () => {
+  const toggleEdit = () => {
     setIsEditing(prev => !prev);
   }
 
@@ -35,12 +34,12 @@ const TaskItem = (props) => {
       />
       {
         isEditing ? (
-          <EditTask task={task} EditTaskById={EditTaskById} toggleRename={toggleRename} />
+          <EditTask task={task} EditTaskById={EditTaskById} toggleEdit={toggleEdit} />
         ) : (
           <>
             <span className={`task_text ${task.status && 'task_text_active'}`}>{task.text}</span>
             <div className="buttons_wrapper">
-              <button className="button button_rename" onClick={toggleRename}></button>
+              <button className="button button_edit" onClick={toggleEdit}></button>
               <button className="button button_delete" onClick={deleteTask}></button>
             </div>
           </>
@@ -61,24 +60,24 @@ const StyledTaskContainer = styled.li`
     align-items: center;
     justify-content: space-between;
     padding: 5px 10px;
-    border: 1px solid ${baseTheme.colors.grey};
+    border: 1px solid ${({theme}) => theme.colors.grey};
     border-radius: 5px;
 
     .task_text {
       width: 60%;
       white-space: normal;
-      font-size: ${baseTheme.f_size.text};
+      font-size: ${({theme}) => theme.f_size.text};
     }
 
     @media (max-width: 400px) {
       .task_text {
-      font-size: ${baseTheme.f_size.b_des};
-    }
+        font-size: ${({theme}) => theme.f_size.b_des};
+      }
     }
 
     .task_text_active{
       text-decoration: line-through;
-      color: ${baseTheme.colors.grey};
+      color: ${({theme}) => theme.colors.grey};
     }
     .buttons_wrapper {
       display: flex;
@@ -94,14 +93,14 @@ const StyledTaskContainer = styled.li`
       background-position: center;
       cursor: pointer;
       border: none;
-      background-color: ${baseTheme.colors.white};
+      background-color: ${({theme}) => theme.colors.white};
     }
 
     .button_delete {
       background-image: url('/icons/delete_icon.svg');
     }
 
-    .button_rename {
+    .button_edit {
       background-image: url('/icons/rename_img.svg');
     }
 `

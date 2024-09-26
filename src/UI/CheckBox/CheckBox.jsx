@@ -1,9 +1,7 @@
 import React from "react";
 import styled from "styled-components";
-import { baseTheme } from "../../theme";
 
-const CheckBox = (props) => {
- 
+const CheckBox = (props) => { 
   return (
     <StyledCheckBox>
       <label>
@@ -33,18 +31,18 @@ const StyledCheckBox = styled.div`
     .checkbox {
       width: 30px;
       height: 30px;
-      border: 2px solid ${baseTheme.colors.black};
+      border: 2px solid ${({theme}) => theme.colors.black};
       appearance: none;
       cursor: pointer;
       border-radius: 30px;
     }
 
     .checkbox:checked {
-      background-color: ${baseTheme.colors.white};
+      background-color: ${({theme}) => theme.colors.white};
     }
 
     .checkbox:checked {
-      border: 2px solid ${baseTheme.colors.green};
+      border: 2px solid ${({theme}) => theme.colors.green};
     }
     .checkbox:checked::before {
       content: "";

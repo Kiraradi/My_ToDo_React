@@ -1,7 +1,6 @@
 import React from "react";
 import styled from "styled-components";
 
-import { baseTheme } from "../../theme";
 import { useDispatch } from "react-redux";
 import { createNewTask } from "../../services";
 import { addTasks } from "../../store/todoSlise";
@@ -17,7 +16,9 @@ const TodoForm = () => {
     const handleSubmit = (event) => {
         event.preventDefault();
 
-        if (!taskText.trim()) return;
+        if (!taskText.trim()) {
+            return;
+        }
         const newTask = createNewTask(taskText);
         dispatch(addTasks(newTask))
         setTaskText('');
@@ -44,6 +45,6 @@ const StyledForm = styled.form`
 
     .todo_input:focus {
         outline: none;
-        border: 3px solid ${baseTheme.colors.red};
+        border: 3px solid ${({ theme }) => theme.colors.red};
     }
 `
