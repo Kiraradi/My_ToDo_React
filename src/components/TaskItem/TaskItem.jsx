@@ -66,6 +66,8 @@ const StyledTaskContainer = styled.li`
     .task_text {
       width: 60%;
       white-space: normal;
+      word-wrap: break-word;
+      overflow-wrap: break-word;
       font-size: ${({theme}) => theme.f_size.text};
     }
 
